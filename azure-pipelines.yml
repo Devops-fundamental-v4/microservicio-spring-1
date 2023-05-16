@@ -30,8 +30,8 @@ jobs:
       gradleWrapperFile: 'gradlew'
       tasks: 'sonarqube'
       publishJUnitResults: false
-      codeCoverageToolOption: 'JaCoCo'
-      codeCoverageClassFilesDirectories: 'build/classes/main/'
+      # codeCoverageToolOption: 'JaCoCo'
+      # codeCoverageClassFilesDirectories: 'build/classes/main/'
       javaHomeOption: 'JDKVersion'
       sonarQubeRunAnalysis: true
       sqGradlePluginVersionChoice: 'specify'
@@ -46,7 +46,7 @@ jobs:
   - task: Docker@2
     inputs:
       containerRegistry: 'docker-service'
-      repository: 'crisacevedo/spring-clinic'
+      repository: 'crisacevedo/microservicio-spring'
       command: 'build'
       Dockerfile: '**/Dockerfile' 
 
@@ -54,7 +54,7 @@ jobs:
   - task: Docker@2
     inputs:
       containerRegistry: 'docker-service'
-      repository: 'crisacevedo/spring-clinic'
+      repository: 'crisacevedo/microservicio-spring'
       command: 'push'
 
 # - job:
