@@ -18,23 +18,23 @@ jobs:
 
   
 
-# - task: SonarCloudPrepare@1
-#   inputs:
-#     SonarCloud: 'SONAR-CLOUD'
-#     organization: 'devops-fundamental-v4'
-#     projectKey: Devops-fundamental-v4_java-web-1
-#     projectName: java-web-1
-#   displayName: 'SonarCloud'
-# - task: Gradle@3
-#   inputs:
-#     gradleWrapperFile: 'gradlew'
-#     tasks: 'sonarqube'
-#     publishJUnitResults: false
-#     javaHomeOption: 'JDKVersion'
-#     sonarQubeRunAnalysis: true
-#     sqGradlePluginVersionChoice: 'specify'
-#     sonarQubeGradlePluginVersion: '3.3'
-#     spotBugsAnalysis: false
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'SONAR-CLOUD'
+      organization: 'devops-fundamental-v4'
+      projectKey: Devops-fundamental-v4_microservicio-spring-1
+      projectName: microservicio-spring-1
+    displayName: 'SonarCloud'
+  - task: Gradle@3
+    inputs:
+      gradleWrapperFile: 'gradlew'
+      tasks: 'sonarqube'
+      publishJUnitResults: false
+      javaHomeOption: 'JDKVersion'
+      sonarQubeRunAnalysis: true
+      sqGradlePluginVersionChoice: 'specify'
+      sonarQubeGradlePluginVersion: '3.3'
+      spotBugsAnalysis: false
 
   - task: Docker@2
     inputs:
@@ -55,16 +55,16 @@ jobs:
       repository: 'crisacevedo/spring-clinic'
       command: 'push'
 
-- job:
-  pool:
-    'default'
-  steps:
+# - job:
+#   pool:
+#     'default'
+#   steps:
   
 
-  - task: Kubernetes@1
-    inputs:
-      connectionType: 'None'
-      command: 'create'
-      arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
-      secretType: 'dockerRegistry'
-      containerRegistryType: 'Azure Container Registry'
+#   - task: Kubernetes@1
+#     inputs:
+#       connectionType: 'None'
+#       command: 'create'
+#       arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
+#       secretType: 'dockerRegistry'
+#       containerRegistryType: 'Azure Container Registry'
