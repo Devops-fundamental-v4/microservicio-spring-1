@@ -20,3 +20,21 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+apply plugin: 'jacoco'
+
+jacoco {
+  toolVersion = '0.8.5'
+}
+
+test {
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+  dependsOn Test
+	reports {
+		html.enabled true
+		xml.enabled true
+	}
+}
