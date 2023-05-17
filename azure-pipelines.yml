@@ -10,7 +10,7 @@ jobs:
      gradleWrapperFile: 'gradlew'
      tasks: 'build'
      publishJUnitResults: true
-     testResultsFiles: '**/TEST-*.xml'
+     testResultsFiles: '$(Build.ArtifactStagingDirectory)/**/*.xml'
      javaHomeOption: 'JDKVersion'
      sonarQubeRunAnalysis: false
      spotBugsAnalysis: false
@@ -30,7 +30,7 @@ jobs:
       gradleWrapperFile: 'gradlew'
       tasks: 'sonarqube'
       publishJUnitResults: true
-      testResultsFiles: 'TEST-*.xml'
+      testResultsFiles: '$(Build.ArtifactStagingDirectory)/**/*.xml'
       codeCoverageToolOption: 'JaCoCo'
       codeCoverageClassFilesDirectories: 'build/classes/main/'
       javaHomeOption: 'JDKVersion'
