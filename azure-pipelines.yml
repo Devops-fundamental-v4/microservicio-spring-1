@@ -30,7 +30,7 @@ jobs:
       gradleWrapperFile: 'gradlew'
       tasks: 'sonarqube'
       publishJUnitResults: true
-      testResultsFiles: 'TEST-REULTS.xml'
+      testResultsFiles: 'TEST-*.xml'
       codeCoverageToolOption: 'JaCoCo'
       codeCoverageClassFilesDirectories: 'build/classes/main/'
       javaHomeOption: 'JDKVersion'
