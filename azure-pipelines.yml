@@ -11,8 +11,6 @@ jobs:
       tasks: 'build'
       publishJUnitResults: true
       testResultsFiles: 'TEST-*.xml'
-      codeCoverageToolOption: 'JaCoCo'
-      codeCoverageClassFilesDirectories: 'build/classes/main/'
       javaHomeOption: 'JDKVersion'
       sonarQubeRunAnalysis: false
       spotBugsAnalysis: false
