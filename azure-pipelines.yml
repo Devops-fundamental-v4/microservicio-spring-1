@@ -11,8 +11,6 @@ jobs:
       tasks: 'build'
       publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'
-      codeCoverageToolOption: 'JaCoCo'
-      codeCoverageClassFilesDirectories: 'build/classes/main/'
       javaHomeOption: 'JDKVersion'
       sonarQubeRunAnalysis: false
       spotBugsAnalysis: false
@@ -20,7 +18,9 @@ jobs:
 
     
 
-  
+  - task: PublishCodeCoverageResults@2
+    inputs:
+      summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.xml'
 
   # - task: SonarCloudPrepare@1
   #   inputs:
