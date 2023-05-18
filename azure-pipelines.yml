@@ -18,9 +18,10 @@ jobs:
 
     
 
-  - task: PublishCodeCoverageResults@2
+  - task: PublishCodeCoverageResults@1
     inputs:
-      summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.xml'
+      summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.html'
+      codeCoverageTool: 'JaCoCo'
 
   # - task: SonarCloudPrepare@1
   #   inputs:
