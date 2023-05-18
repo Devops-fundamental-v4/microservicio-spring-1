@@ -20,7 +20,7 @@ jobs:
 
   - task: PublishCodeCoverageResults@1
     inputs:
-      summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.html'
+      summaryFileLocation: ${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.xml
       reportDirectory: ${System.DefaultWorkingDirectory}/**/reports/jacoco/test/html
       codeCoverageTool: 'JaCoCo'
 
