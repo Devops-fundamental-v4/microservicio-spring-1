@@ -21,6 +21,7 @@ jobs:
   - task: PublishCodeCoverageResults@1
     inputs:
       summaryFileLocation: '${System.DefaultWorkingDirectory}/**/reports/jacoco/test/jacocoTestReport.html'
+      reportDirectory: ${System.DefaultWorkingDirectory}/**/reports/jacoco/test/html
       codeCoverageTool: 'JaCoCo'
 
   # - task: SonarCloudPrepare@1
