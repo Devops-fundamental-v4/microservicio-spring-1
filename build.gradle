@@ -40,3 +40,17 @@ jacocoTestReport {
 		xml.enabled true
     }
 }
+apply plugin: 'jacoco'
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.85
+            }
+        }
+    }
+}
+
+// to run coverage verification during the build (and fail when appropriate)
+check.dependsOn jacocoTestCoverageVerification
