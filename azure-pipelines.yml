@@ -6,6 +6,10 @@ jobs:
 
   steps:
   - script: |
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}'
       git fetch --unshallow
     displayName: 'convert to non-shallow clone' 
   
@@ -84,12 +88,8 @@ jobs:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      # script: |
-      #   Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080} ;
-      #   $url = "http://localhost:8085"
-      #   PowerShell Invoke-WebRequest -Uri $url -Method GET
-      script: 'where.exe kubectl'
-
+      script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}'
+         
 - job: Jmeter
   dependsOn: Deploy
   condition:  
