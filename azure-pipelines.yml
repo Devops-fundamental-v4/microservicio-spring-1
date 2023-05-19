@@ -75,7 +75,7 @@ jobs:
       script: |
         # Write your PowerShell commands here.
         
-        Write-Host "Hello World"
+        Write-Host "kubectl create deployment springclinic2  --image=crisacevedo/spring-clinic:23"
   # - task: Kubernetes@1
   #   inputs:
   #     connectionType: 'None'
