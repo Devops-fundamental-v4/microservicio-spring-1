@@ -72,7 +72,7 @@ jobs:
       command: 'push'
 
 - job: Deploy
-  timeoutInMinutes: 1
+  timeoutInMinutes: 5
   dependsOn: Building
   pool:
     'default'
@@ -91,7 +91,7 @@ jobs:
       script: 'kubectl port-forward deployment/microservice 8085:8080'
          
 - job: Jmeter
-  dependsOn: Deploy
+  dependsOn: Building
   condition:  
   pool:
     'default'
