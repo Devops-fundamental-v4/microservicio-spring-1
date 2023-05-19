@@ -8,68 +8,68 @@ jobs:
   - script: |
       git fetch --unshallow
     displayName: 'convert to non-shallow clone' 
-  - task: Gradle@3
-    inputs:
-      gradleWrapperFile: 'gradlew'
-      tasks: 'build'
-      publishJUnitResults: true
-      testResultsFiles: '**/TEST-*.xml'
-      javaHomeOption: 'JDKVersion'
-      sonarQubeRunAnalysis: false
-      spotBugsAnalysis: false
-    displayName: Build
+  # - task: Gradle@3
+  #   inputs:
+  #     gradleWrapperFile: 'gradlew'
+  #     tasks: 'build'
+  #     publishJUnitResults: true
+  #     testResultsFiles: '**/TEST-*.xml'
+  #     javaHomeOption: 'JDKVersion'
+  #     sonarQubeRunAnalysis: false
+  #     spotBugsAnalysis: false
+  #   displayName: Build
 
     
 
-  - task: PublishCodeCoverageResults@1
-    inputs:
-        codeCoverageTool: 'JaCoCo'
-        summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
-        pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
-        reportDirectory: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test'
-        failIfCoverageEmpty: true
+  # - task: PublishCodeCoverageResults@1
+  #   inputs:
+  #       codeCoverageTool: 'JaCoCo'
+  #       summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
+  #       pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
+  #       reportDirectory: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test'
+  #       failIfCoverageEmpty: true
 
-  - task: SonarCloudPrepare@1
-    inputs:
-      SonarCloud: 'SONAR-CLOUD'
-      organization: 'devops-fundamental-v4'
-      projectKey: Devops-fundamental-v4_microservicio-spring-1
-      projectName: microservicio-spring-1
-    displayName: 'SonarCloud'
-  - task: Gradle@3
-    inputs:
-      gradleWrapperFile: 'gradlew'
-      tasks: 'sonarqube'
-      publishJUnitResults: true
-      testResultsFiles: 'TEST-*.xml'
-      javaHomeOption: 'JDKVersion'
-      sonarQubeRunAnalysis: true
-      sqGradlePluginVersionChoice: 'specify'
-      sonarQubeGradlePluginVersion: '3.5.0.2730'
-      spotBugsAnalysis: false
+  # - task: SonarCloudPrepare@1
+  #   inputs:
+  #     SonarCloud: 'SONAR-CLOUD'
+  #     organization: 'devops-fundamental-v4'
+  #     projectKey: Devops-fundamental-v4_microservicio-spring-1
+  #     projectName: microservicio-spring-1
+  #   displayName: 'SonarCloud'
+  # - task: Gradle@3
+  #   inputs:
+  #     gradleWrapperFile: 'gradlew'
+  #     tasks: 'sonarqube'
+  #     publishJUnitResults: true
+  #     testResultsFiles: 'TEST-*.xml'
+  #     javaHomeOption: 'JDKVersion'
+  #     sonarQubeRunAnalysis: true
+  #     sqGradlePluginVersionChoice: 'specify'
+  #     sonarQubeGradlePluginVersion: '3.5.0.2730'
+  #     spotBugsAnalysis: false
 
-  - task: sonarcloud-buildbreaker@2
-    inputs:
-      SonarCloud: 'SONAR-CLOUD'
-      organization: 'devops-fundamental-v4'
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      command: 'login'
+  # - task: sonarcloud-buildbreaker@2
+  #   inputs:
+  #     SonarCloud: 'SONAR-CLOUD'
+  #     organization: 'devops-fundamental-v4'
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     command: 'login'
   
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      repository: 'crisacevedo/microservicio-spring'
-      command: 'build'
-      Dockerfile: '**/Dockerfile' 
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     repository: 'crisacevedo/microservicio-spring'
+  #     command: 'build'
+  #     Dockerfile: '**/Dockerfile' 
 
   
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      repository: 'crisacevedo/microservicio-spring'
-      command: 'push'
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     repository: 'crisacevedo/microservicio-spring'
+  #     command: 'push'
 
 - job: Deploy
   timeoutInMinutes: 5
@@ -85,10 +85,10 @@ jobs:
       arguments: 'deployment microservice --image=crisacevedo/microservicio-spring:87'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: 'kubectl port-forward deployment/microservice 8085:8080'
+  # - task: PowerShell@2
+  #   inputs:
+  #     targetType: 'inline'
+  - script: 'kubectl port-forward deployment/microservice 8085:8080'
          
 - job: Jmeter
   dependsOn: Building
