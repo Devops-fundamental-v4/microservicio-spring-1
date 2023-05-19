@@ -88,10 +88,11 @@ jobs:
       #   Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080} ;
       #   $url = "http://localhost:8085"
       #   PowerShell Invoke-WebRequest -Uri $url -Method GET
-      script: 'kubectl port-forward deployment/microservice 8085:8080'
+      script: 'where.exe kubectl'
 
 - job: Jmeter
   dependsOn: Deploy
+  condition:  
   pool:
     'default'
   steps:
