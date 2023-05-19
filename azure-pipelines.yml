@@ -4,69 +4,83 @@ jobs:
     vmImage: 'ubuntu-latest'
   displayName: Build
 
+  # steps:
+  # - task: Gradle@3
+  #   inputs:
+  #     gradleWrapperFile: 'gradlew'
+  #     tasks: 'build'
+  #     publishJUnitResults: true
+  #     testResultsFiles: '**/TEST-*.xml'
+  #     javaHomeOption: 'JDKVersion'
+  #     sonarQubeRunAnalysis: false
+  #     spotBugsAnalysis: false
+  #   displayName: Build
+
+    
+
+  # - task: PublishCodeCoverageResults@1
+  #   inputs:
+  #       codeCoverageTool: 'JaCoCo'
+  #       summaryFileLocation: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test/jacocoTestReport.xml'
+  #       pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
+  #       reportDirectory: '$(System.DefaultWorkingDirectory)/build/reports/jacoco/test'
+  #       failIfCoverageEmpty: true
+
+  # - task: SonarCloudPrepare@1
+  #   inputs:
+  #     SonarCloud: 'SONAR-CLOUD'
+  #     organization: 'devops-fundamental-v4'
+  #     projectKey: Devops-fundamental-v4_microservicio-spring-1
+  #     projectName: microservicio-spring-1
+  #   displayName: 'SonarCloud'
+  # - task: Gradle@3
+  #   inputs:
+  #     gradleWrapperFile: 'gradlew'
+  #     tasks: 'sonarqube'
+  #     publishJUnitResults: true
+  #     testResultsFiles: 'TEST-*.xml'
+  #     javaHomeOption: 'JDKVersion'
+  #     sonarQubeRunAnalysis: true
+  #     sqGradlePluginVersionChoice: 'specify'
+  #     sonarQubeGradlePluginVersion: '3.5.0.2730'
+  #     spotBugsAnalysis: false
+
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     command: 'login'
+  
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     repository: 'crisacevedo/microservicio-spring'
+  #     command: 'build'
+  #     Dockerfile: '**/Dockerfile' 
+
+  
+  # - task: Docker@2
+  #   inputs:
+  #     containerRegistry: 'docker-service'
+  #     repository: 'crisacevedo/microservicio-spring'
+  #     command: 'push'
+
+- job:
+  pool:
+    'default'
   steps:
-  - task: Gradle@3
-    inputs:
-     gradleWrapperFile: 'gradlew'
-     tasks: 'build'
-     publishJUnitResults: true
-     testResultsFiles: '**/TEST-*.xml'
-     javaHomeOption: 'JDKVersion'
-     sonarQubeRunAnalysis: false
-     spotBugsAnalysis: false
-    displayName: Build
-
   
-
-  - task: SonarCloudPrepare@1
+  # - task: PowerShell@2
+  #   inputs:
+  #     targetType: 'inline'
+  #     script: 'kubectl create deployment springclinic2  --image=crisacevedo/spring-clinic:23'
+  - task: Kubernetes@1
     inputs:
-      SonarCloud: 'SONAR-CLOUD'
-      organization: 'devops-fundamental-v4'
-      projectKey: Devops-fundamental-v4_microservicio-spring-1
-      projectName: microservicio-spring-1
-    displayName: 'SonarCloud'
-  - task: Gradle@3
+      connectionType: 'None'
+      command: 'create'
+      arguments: 'deployment microservice --image=crisacevedo/microservicio-spring:76'
+      secretType: 'dockerRegistry'
+      containerRegistryType: 'Azure Container Registry'
+  - task: PowerShell@2
     inputs:
-      gradleWrapperFile: 'gradlew'
-      tasks: 'sonarqube'
-      publishJUnitResults: false
-      # codeCoverageToolOption: 'JaCoCo'
-      # codeCoverageClassFilesDirectories: 'build/classes/main/'
-      javaHomeOption: 'JDKVersion'
-      sonarQubeRunAnalysis: true
-      sqGradlePluginVersionChoice: 'specify'
-      sonarQubeGradlePluginVersion: '3.5.0.2730'
-      spotBugsAnalysis: false
-
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      command: 'login'
-  
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      repository: 'crisacevedo/microservicio-spring'
-      command: 'build'
-      Dockerfile: '**/Dockerfile' 
-
-  
-  - task: Docker@2
-    inputs:
-      containerRegistry: 'docker-service'
-      repository: 'crisacevedo/microservicio-spring'
-      command: 'push'
-
-# - job:
-#   pool:
-#     'default'
-#   steps:
-  
-
-#   - task: Kubernetes@1
-#     inputs:
-#       connectionType: 'None'
-#       command: 'create'
-#       arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
-#       secretType: 'dockerRegistry'
-#       containerRegistryType: 'Azure Container Registry'
+      targetType: 'inline'
+      script: 'kubectl port-forward deployment/microservice 8080:8085'
