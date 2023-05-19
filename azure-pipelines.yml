@@ -85,10 +85,10 @@ jobs:
       arguments: 'deployment microservice --image=crisacevedo/microservicio-spring:87'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
-  # - task: PowerShell@2
-  #   inputs:
-  #     targetType: 'inline'
-  - script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}; C:\apache\bin\ApacheJMeter.jar -n -t C:\apache\bin\Devops-Tarea.jmx -l C:\apache\bin\nuevo.jtl'
+  - task: PowerShell@2
+    inputs:
+     targetType: 'inline'
+     script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}; C:\apache\bin\ApacheJMeter.jar -n -t C:\apache\bin\Devops-Tarea.jmx -l C:\apache\bin\nuevo.jtl'
          
 - job: Jmeter
   dependsOn: Deploy
