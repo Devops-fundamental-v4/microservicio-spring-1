@@ -44,6 +44,11 @@ jobs:
       sqGradlePluginVersionChoice: 'specify'
       sonarQubeGradlePluginVersion: '3.5.0.2730'
       spotBugsAnalysis: false
+    
+  - task: sonarcloud-buildbreaker@2
+    inputs:
+      SonarCloud: 'SONAR-CLOUD'
+      organization: 'devops-fundamental-v4'
 
   - task: Docker@2
     inputs:
