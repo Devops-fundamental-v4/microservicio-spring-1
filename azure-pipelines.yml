@@ -64,16 +64,16 @@ jobs:
       repository: 'crisacevedo/microservicio-spring'
       command: 'push'
 
-# - job:
-#   pool:
-#     'default'
-#   steps:
+- job:
+  pool:
+    'default'
+  steps:
   
 
-#   - task: Kubernetes@1
-#     inputs:
-#       connectionType: 'None'
-#       command: 'create'
-#       arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
-#       secretType: 'dockerRegistry'
-#       containerRegistryType: 'Azure Container Registry'
+  - task: Kubernetes@1
+    inputs:
+      connectionType: 'None'
+      command: 'create'
+      arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
+      secretType: 'dockerRegistry'
+      containerRegistryType: 'Azure Container Registry'
