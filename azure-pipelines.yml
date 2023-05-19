@@ -77,6 +77,10 @@ jobs:
     inputs:
       connectionType: 'None'
       command: 'create'
-      arguments: 'deployment springclinic2 --image=crisacevedo/spring-clinic:23'
+      arguments: 'deployment springclinic3 --image=crisacevedo/spring-clinic:23'
       secretType: 'dockerRegistry'
       containerRegistryType: 'Azure Container Registry'
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: 'kubectl port-forward deployment/microservicio-spring 8080:8085'
