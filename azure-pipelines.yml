@@ -5,6 +5,10 @@ jobs:
   displayName: Build
 
   steps:
+  - script: |
+      git fetch --unshallow
+    displayName: 'convert to non-shallow clone' 
+  
   - task: Gradle@3
     inputs:
       gradleWrapperFile: 'gradlew'
