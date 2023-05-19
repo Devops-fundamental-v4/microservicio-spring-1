@@ -85,7 +85,6 @@ jobs:
     inputs:
       targetType: 'inline'
       script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}'
-      runScriptInSeparateScope: true
 
 - job: Jmeter
   dependsOn: Deploy
