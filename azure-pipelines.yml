@@ -1,5 +1,5 @@
 jobs:
-- job:
+- job: Building
   pool:
     vmImage: 'ubuntu-latest'
   displayName: Build
@@ -68,15 +68,12 @@ jobs:
   #     repository: 'crisacevedo/microservicio-spring'
   #     command: 'push'
 
-- job:
+- job: Deploy
+  dependsOn: Building
   pool:
     'default'
   steps:
   
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: 'kubectl create deployment springclinic2  --image=crisacevedo/spring-clinic:23'
   - task: Kubernetes@1
     inputs:
       connectionType: 'None'
@@ -90,10 +87,8 @@ jobs:
       script: 'kubectl port-forward deployment/microservice 8080:8085 &'
       runScriptInSeparateScope: true
 
-  
-     
-
-- job:
+- job: Jmeter
+  dependsOn: Deploy
   pool:
     'default'
   steps:
