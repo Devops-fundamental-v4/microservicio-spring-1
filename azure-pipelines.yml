@@ -112,8 +112,8 @@ jobs:
   #     script: 'Get-job | Remove-Job -Force'
   #     arguments: 
      
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'kubectl delete deploy microservice'
+  -  task: PowerShell@2
+     inputs:
+      targetType: 'inline'
+      script: 'kubectl delete deploy microservice'
      
