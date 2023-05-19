@@ -84,7 +84,10 @@ jobs:
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
-      script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}'
+      script: |
+        Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080} ;
+        $url = "http://localhost:8085"
+        PowerShell Invoke-WebRequest -Uri $url -Method GET
 
 - job: Jmeter
   dependsOn: Deploy
@@ -106,11 +109,11 @@ jobs:
       script: 'Get-Content  C:\apache\bin\resultado.jtl'
       arguments: 
       
-  -  task: PowerShell@2
-     inputs:
-      targetType: 'inline'
-      script: 'Get-job | Remove-Job -Force'
-      arguments: 
+  # -  task: PowerShell@2
+  #    inputs:
+  #     targetType: 'inline'
+  #     script: 'Get-job | Remove-Job -Force'
+  #     arguments: 
      
   -  task: PowerShell@2
      inputs:
