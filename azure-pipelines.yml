@@ -6,13 +6,8 @@ jobs:
 
   steps:
   - script: |
-- task: PowerShell@2
-  inputs:
-    targetType: 'inline'
-    script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}'
       git fetch --unshallow
     displayName: 'convert to non-shallow clone' 
-  
   # - task: Gradle@3
   #   inputs:
   #     gradleWrapperFile: 'gradlew'
