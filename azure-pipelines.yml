@@ -88,7 +88,8 @@ jobs:
   - task: PowerShell@2
     inputs:
      targetType: 'inline'
-     script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080}; C:\apache\bin\ApacheJMeter.jar -n -t C:\apache\bin\Devops-Tarea.jmx -l C:\apache\bin\nuevo.jtl'
+     script: 'Start-Job -ScriptBlock {kubectl port-forward deployment/microservice 8085:8080};Get-Date'
+     
          
 - job: Jmeter
   dependsOn: Deploy
