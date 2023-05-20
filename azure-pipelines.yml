@@ -98,7 +98,7 @@ jobs:
     displayName: 'Port forward para el deployment de la imagen para disponibizarla para el load testing.' 
          
 - job: JmeterCleaning
-  dependsOn: Deploy
+  dependsOn: DeployLoadTesting
   condition:  
   pool:
     'default'
